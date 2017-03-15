@@ -1,7 +1,12 @@
 $("#error").hide();
 $("#hud").show();
 
-navigator.geolocation.getCurrentPosition(gotLocation);
+if(navigator.geolocation){
+  navigator.geolocation.getCurrentPosition(gotLocation);
+} else {
+  displayError("Your browser doesn't support geolocation.");
+}
+
 
 function gotLocation(currentPosition) {
   $("#hud").hide();
@@ -19,5 +24,6 @@ function gotLocation(currentPosition) {
 }
 
 function displayError(message) {
+  $("#hud").hide();
   $("#error").text(message).slideDown("slow");
 }
