@@ -2,7 +2,7 @@ $("#error").hide();
 $("#hud").show();
 
 if(navigator.geolocation){
-  navigator.geolocation.getCurrentPosition(gotLocation);
+  navigator.geolocation.getCurrentPosition(gotLocation, gotError);
 } else {
   displayError("Your browser doesn't support geolocation.");
 }
@@ -21,6 +21,18 @@ function gotLocation(currentPosition) {
 
     $(this).text(distanceInMiles + " miles");
   });
+}
+
+function gotError (error) {
+  var message;
+
+  switch (error.code) {
+
+    case error.PERMISSION_DENIED:
+      message = "You need to give permission for us to have your location to calculate distances.";
+      break;
+  }
+  displayError(message);
 }
 
 function displayError(message) {
